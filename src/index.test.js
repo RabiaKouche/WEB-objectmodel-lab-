@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-import { version, Temperature } from '.';
+import { version, Temperature, Door } from '.';
 
 let data;
 beforeAll(async () => {
@@ -81,5 +81,33 @@ describe('Sensor model tests', () => {
   
     });
   });
+
+
+  describe('type Door test', ()=> {
+  
+    test('the type is Door', ()=>{
+      let capteur = new Door(data[1].id,data[1].name,data[1].type,data[1].data);
+      capteur.setType(1);
+      expect(capteur.type).toEqual("DOOR");
+    });
+  
+  
+    test('données DOOR du fichier json',() => {
+      let capteur = new Door(data[1].id,data[1].name,data[1].type,data[1].data);
+      let capteurAttendu = new Door(10245,"Porte du Garage","DOOR",  {
+        value: 0
+      });
+      expect(capteur.toString()).toEqual(capteurAttendu.toString());
+    });
+  
+    test('Nombre de valeurs est nul', ()=>{
+      let capteurAttendu = new Door(10245,"Porte du Garage","DOOR",  {
+        value: 0
+      });
+      expect(capteurAttendu.data.value).toBe(0);
+    });
+  
+  });
+  
   
 });
