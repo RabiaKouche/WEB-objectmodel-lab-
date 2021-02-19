@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-import { version, Temperature, Door } from '.';
+import { version, Temperature, Door, FAN_SPEED } from '.';
 
 let data;
 beforeAll(async () => {
@@ -108,6 +108,43 @@ describe('Sensor model tests', () => {
     });
   
   });
+
+
+  describe('type FAN_SPEED test', ()=> {
+    let tmp = new FAN_SPEED(2222, 'Ventilateur Ordinateur Bureau','FAN_SPEED', {
+      "values": [1073, 1800, 2299, 2176, 1899, 1400],
+      "labels": [
+        "2021-01-19T10:00:00.000Z",
+        "2021-01-19T10:05:00.000Z",
+        "2021-01-19T10:10:00.000Z",
+        "2021-01-19T10:15:00.000Z",
+        "2021-01-19T10:20:00.000Z",
+        "2021-01-19T10:25:00.000Z"
+      ]
+    });
+
+    test('the type is fan speed', ()=>{
+      expect(tmp.type).toBe("FAN_SPEED");
+    });
   
+    test('données FAN_SPEED du fichier json',() => {
+      let capteur = new FAN_SPEED(data[2].id,data[2].name,data[2].type,data[2].data); 
+      expect(capteur.toString()).toEqual(tmp.toString());
+    });
+  
+    test('Nombre de valeurs', ()=>{
+      expect(tmp.data.values.length).toBe(6);
+    });
+
+    test('Moyenne des valeurs de capteur', ()=>{
+      expect(tmp.ValeursMoyenne(tmp)).toBe(1774.5);
+    });
+
+    test('Modifier le type de FanSpeed',() => {
+      let capteur = new FAN_SPEED(data[2].id,data[2].name,data[2].type,data[2].data);
+      capteur.setType(1);
+      expect(capteur.type).toEqual("FAN_SPEED");
+    });
+  });  
   
 });
