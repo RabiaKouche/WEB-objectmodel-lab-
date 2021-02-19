@@ -106,6 +106,17 @@ describe('Sensor model tests', () => {
       });
       expect(capteurAttendu.data.value).toBe(0);
     });
+
+
+
+    test('Modifier les données de capteur', ()=> {
+      let capteur = new Door(data[1].id,data[1].name,data[1].type,data[1].data);
+      capteur.setData({
+        values : [23, 23, 20, 23, 23, 20, 25]
+      });
+      expect(capteur.getData()).toBe(capteur.data);
+  
+    });
   
   });
 
