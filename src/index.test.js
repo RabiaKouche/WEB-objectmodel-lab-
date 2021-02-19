@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-import { version, Temperature, Door, FAN_SPEED, Light, Humidity, Switch } from '.';
+import { version, Temperature, Door, FAN_SPEED, Light, Humidity, Switch, Datum } from '.';
 
 let data;
 beforeAll(async () => {
@@ -12,8 +12,8 @@ beforeAll(async () => {
 
 describe('Sensor model tests', () => {
   describe('Dummy tests', () => {
-    test('data is loaded with 6 elements', () => {
-      expect(data.length).toBe(6);
+    test('data is loaded with 7 elements', () => {
+      expect(data.length).toBe(7);
     });
     test('version number from the model', () => {
       expect(version()).toBe('1.0.0');
@@ -241,8 +241,26 @@ describe('Sensor model tests', () => {
       test('Nombre de valeurs', ()=>{
         expect(SwitchCapteur.data.values).toBe(0);
       });
-  
-  
+  });
+
+  describe('class datum test', ()=>{
+    let datum = new Datum([23, 25, 30]);
+    test("data datum is loaded with 0 elements", ()=>{
+      expect(datum.getValue().length).toBe(3);
+    });
+
+    test('afficher les données de datum', ()=> {
+     let  datum2 = new Datum(data[6].data.value);
+      expect(datum2.toString()).toEqual(datum.toString());
+    });
+
+    test('Modifier la valeur de Datum', ()=> {
+      datum.setValue([20, 22, 32]);
+      let datumAttendu = datum.getValue();
+      
+      expect(datum.getValue()).toBe(datumAttendu);
+    });
+   
   });
 
 });

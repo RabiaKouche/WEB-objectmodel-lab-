@@ -89,12 +89,7 @@ export  class Temperature extends Sensor {
 
       constructor(id, name, type, data) {
         super(id, name, type, data);
-      }
-
-      setType(type) {
-        this.type= typeCapteur(type);
-      }
-    
+      }   
     }
 
 export class Humidity extends Sensor {
@@ -102,9 +97,7 @@ export class Humidity extends Sensor {
     super(id, name, type, data);
     
   }
-  setType(value) {
-    this.type= typeCapteur(value);
-  }
+ 
 
   toString() {
     return (`${super.toString()}`);
@@ -117,9 +110,6 @@ export class Light extends Sensor {
     
   }
 
-  setType(value) {
-    this.type= typeCapteur(value);
-  }
 
   toString() {
     return (`${super.toString()}`);
@@ -131,9 +121,7 @@ export  class Switch extends Sensor {
     super(id, name, type,data);
   }
 
-  setType(value) {
-    this._type= typeCapteur(value);
-  }
+  
 
   toString() {
     return (`${super.toString()}`);
