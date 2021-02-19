@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-import { version, Temperature, Door, FAN_SPEED, Light, Humidity, Switch, Datum } from '.';
+import { version, Temperature, Door, FAN_SPEED, Light, Humidity, Switch, Datum, TimeSeries } from '.';
 
 let data;
 beforeAll(async () => {
@@ -262,5 +262,60 @@ describe('Sensor model tests', () => {
     });
    
   });
+
+
+  describe('class timeSeries test', ()=>{
+    let TimeseriesObjet = new TimeSeries([23, 23, 22, 21, 23, 23, 23, 25, 25],[
+        "2021-01-19T08:00:00.000Z",
+        "2021-01-19T09:00:00.000Z",
+        "2021-01-19T10:00:00.000Z",
+        "2021-01-19T11:00:00.000Z",
+        "2021-01-19T12:00:00.000Z",
+        "2021-01-19T13:00:00.000Z",
+        "2021-01-19T14:00:00.000Z",
+        "2021-01-19T15:00:00.000Z",
+        "2021-01-19T16:00:00.000Z"
+      ]);
+
+    test('Modifier les valeurs de Times series ...', ()=> {
+      TimeseriesObjet.setValues([24, 24, 23, 22, 24, 24, 24, 26, 26]);
+      let attendu = TimeseriesObjet.getValues();
+      expect(TimeseriesObjet.getValues()).toEqual(attendu);
+    });
+
+    test('Modifier les labels de Times series ...', ()=> {
+      TimeseriesObjet.setLabels([
+        "2020-02-19T08:00:00.000Z",
+        "2020-02-19T09:00:00.000Z",
+        "2020-02-19T10:00:00.000Z",
+        "2020-02-19T11:00:00.000Z",
+        "2020-02-19T12:00:00.000Z",
+      ]);
+      let attendu = TimeseriesObjet.getLabels();
+      expect(TimeseriesObjet.getLabels()).toEqual(attendu);
+    });
+
+
+    test('afficher les données de time series', ()=> {
+      let TimeseriesObjet2 = new TimeSeries([23, 23, 22, 21, 23, 23, 23, 25, 25],[
+        "2021-01-19T08:00:00.000Z",
+        "2021-01-19T09:00:00.000Z",
+        "2021-01-19T10:00:00.000Z",
+        "2021-01-19T11:00:00.000Z",
+        "2021-01-19T12:00:00.000Z",
+        "2021-01-19T13:00:00.000Z",
+        "2021-01-19T14:00:00.000Z",
+        "2021-01-19T15:00:00.000Z",
+        "2021-01-19T16:00:00.000Z"
+      ]);
+
+      let  datum = new TimeSeries(data[0].data.values, data[0].data.labels);
+       expect(TimeseriesObjet2.toString()).toEqual(datum.toString());
+     });
+  });
+
+  
+
+
 
 });

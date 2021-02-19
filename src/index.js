@@ -56,12 +56,7 @@ export class Sensor {
       if (data.labels && data.values){
         this.data = new TimeSeries(data.values,data.labels);
       }
-      else if(data.value){
-          this.data = new Datum(data.value);
-        }else {
-        this.data = new Data();
-      }
-
+      
     }
     getData(){
       return this.data;
