@@ -183,4 +183,55 @@ describe('Sensor model tests', () => {
       });
     });
 
-   });
+    describe('type HUMIDITY test', ()=> {
+      let HumidityCapteur = new Humidity(5555, 'chambre humide','HUMIDITY', {
+        "values": [1075, 1800, 2297, 2176, 1899],
+        "labels": [
+          "2021-01-19T10:00:00.000Z",
+          "2021-01-19T10:06:00.000Z",
+          "2021-01-19T10:10:00.000Z",
+          "2021-01-19T10:15:00.000Z",
+          "2021-01-19T10:20:00.000Z",
+          "2021-01-19T10:25:00.000Z"
+        ]
+      });
+      test('the type is Humidity', ()=>{
+      
+        expect(HumidityCapteur.type).toBe("HUMIDITY");
+      });
+    
+      test('données humidity du fichier json',() => {
+        let capteur = new Humidity(data[4].id,data[4].name,data[4].type,data[4].data);
+        
+        expect(capteur.toString()).toEqual(HumidityCapteur.toString());
+      });
+    
+      test('Nombre de valeurs', ()=>{
+        expect(HumidityCapteur.data.values.length).toBe(5);
+      });
+    });
+
+    describe("type Switch test", ()=> {
+      let SwitchCapteur = new Switch(2035, 'Interrupteur de la salle de cours','SWITCH', {
+        "values": 0,
+      });
+  
+      test('the type is Switch', ()=>{
+      
+        expect(SwitchCapteur.type).toBe("SWITCH");
+      });
+    
+      test('données SWITCH du fichier json',() => {
+        let capteur = new Switch(data[5].id,data[5].name,data[5].type,data[5].data);
+        
+        expect(capteur.toString()).toEqual(SwitchCapteur.toString());
+      });
+    
+      test('Nombre de valeurs', ()=>{
+        expect(SwitchCapteur.data.values).toBe(0);
+      });
+  
+  
+  });
+
+});
