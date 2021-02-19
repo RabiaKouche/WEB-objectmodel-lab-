@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-import { version, Temperature, Door, FAN_SPEED } from '.';
+import { version, Temperature, Door, FAN_SPEED, Light } from '.';
 
 let data;
 beforeAll(async () => {
@@ -12,8 +12,8 @@ beforeAll(async () => {
 
 describe('Sensor model tests', () => {
   describe('Dummy tests', () => {
-    test('data is loaded with 3 elements', () => {
-      expect(data.length).toBe(3);
+    test('data is loaded with 4 elements', () => {
+      expect(data.length).toBe(4);
     });
     test('version number from the model', () => {
       expect(version()).toBe('1.0.0');
@@ -145,6 +145,43 @@ describe('Sensor model tests', () => {
       capteur.setType(1);
       expect(capteur.type).toEqual("FAN_SPEED");
     });
-  });  
+  });
   
-});
+  
+  describe('type Light test', ()=> {
+    let lightCapteur = new Light(1111, 'lumiere dans une chambre','LIGHT', {
+      "values": [1173, 2598, 2299, 2215, 1800, 1435],
+      "labels": [
+        "2021-01-19T10:00:00.000Z",
+        "2021-01-19T10:05:00.000Z",
+        "2021-01-19T10:10:00.000Z",
+        "2021-01-19T10:15:00.000Z",
+        "2021-01-19T10:20:00.000Z",
+        "2021-01-19T10:25:00.000Z"
+      ]
+    });
+    test('the type is Light', ()=>{
+      expect(lightCapteur.type).toBe("LIGHT");
+    });
+  
+    test('données Light du fichier json',() => {
+      let capteur = new Light(data[3].id,data[3].name,data[3].type,data[3].data);
+      expect(capteur.toString()).toEqual(lightCapteur.toString());
+    });
+  
+    test('Nombre de valeurs', ()=>{
+      expect(lightCapteur.data.values.length).toBe(6);
+    });
+
+    test('Moyenne des valeurs de capteur', ()=>{
+      expect(lightCapteur.ValeursMoyenne(lightCapteur)).toBe(1920);
+    });
+
+    test('Modifier le type du capteur', () => {
+        lightCapteur.setName("lumiere");
+        expect(lightCapteur.getName()).toBe("lumiere");
+      });
+    });
+  });
+
+  

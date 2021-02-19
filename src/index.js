@@ -73,7 +73,7 @@ export class Sensor {
   toString() {
     return (`Capteur : ${this.id}, ${this.name}, ${this.type}, ${this.data}`);
   }
-  
+
 ValeursMoyenne(capteur){
  let b = capteur.data.values.length;
  let a = capteur.data.values;
@@ -120,7 +120,7 @@ export class Light extends Sensor {
   }
 
   setType(value) {
-    this._type= typeCapteur(value);
+    this.type= typeCapteur(value);
   }
 
   toString() {
