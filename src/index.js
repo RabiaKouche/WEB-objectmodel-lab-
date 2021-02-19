@@ -94,7 +94,7 @@ export  class Temperature extends Sensor {
       }
 
       setType(type) {
-        this._type= typeCapteur(type);
+        this.type= typeCapteur(type);
       }
     
     }
@@ -105,7 +105,7 @@ export class Humidity extends Sensor {
     
   }
   setType(value) {
-    this._type= typeCapteur(value);
+    this.type= typeCapteur(value);
   }
 
   toString() {

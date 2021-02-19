@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-import { version, Temperature, Door, FAN_SPEED, Light } from '.';
+import { version, Temperature, Door, FAN_SPEED, Light, Humidity, Switch } from '.';
 
 let data;
 beforeAll(async () => {
@@ -12,8 +12,8 @@ beforeAll(async () => {
 
 describe('Sensor model tests', () => {
   describe('Dummy tests', () => {
-    test('data is loaded with 4 elements', () => {
-      expect(data.length).toBe(4);
+    test('data is loaded with 6 elements', () => {
+      expect(data.length).toBe(6);
     });
     test('version number from the model', () => {
       expect(version()).toBe('1.0.0');
@@ -182,6 +182,5 @@ describe('Sensor model tests', () => {
         expect(lightCapteur.getName()).toBe("lumiere");
       });
     });
-  });
 
-  
+   });
